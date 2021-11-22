@@ -1,0 +1,11 @@
+__pycache__/*
+__pycache__/
+*.pyc
+*/build
+*/dist
+*/packenv
+*.user
+chromedriver.exe
+chromedriver_win32.lnk
+@AutomationLog.txt
+id_pw.json
