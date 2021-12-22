@@ -71,8 +71,8 @@
       <item>
        <widget class="QTextEdit" name="textEdit_json">
         <property name="styleSheet">
-         <string notr="true">    min-height:/*hdpi*/ 175px;
-    max-height:/*hdpi*/ 175px;</string>
+         <string notr="true">    min-height:/*hdpi*/ 155px;
+    max-height:/*hdpi*/ 155px;</string>
         </property>
         <property name="acceptRichText">
          <bool>false</bool>
@@ -81,6 +81,27 @@
          <string>在此处输入下载的url</string>
         </property>
        </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>log文件后缀：</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="subLineEdit">
+          <property name="placeholderText">
+           <string>后缀</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">

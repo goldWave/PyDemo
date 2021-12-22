@@ -9,7 +9,7 @@ from PySide2.QtWidgets import (
     QPushButton,
     QWidget,
     QTextEdit,
-    QPushButton,
+    QLineEdit
 )
 import time
 import json
@@ -83,13 +83,13 @@ class PLSLogin(QMainWindow):
             self.p.errorOccurred.connect(self.handle_err)
             self.message('exe:' + _p_e)
             self.message('py:' + _path)
-
+            suffixName = self.myWidget.subLineEdit.text() #log文件后缀
             if os.path.exists(_p_e):
                 self.message('运行 exe 文件')
-                self.p.start(_p_e, [parameter])
+                self.p.start(_p_e, [parameter,suffixName])
             elif os.path.exists(_path):
                 self.message('运行 python 文件')
-                self.p.start('python', [_path, parameter])
+                self.p.start('python', [_path, parameter,suffixName])
             else:
                 self.message("退出进程，因为执行路径没有找到")
 

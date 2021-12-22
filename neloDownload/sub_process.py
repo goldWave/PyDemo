@@ -19,6 +19,8 @@ id_ps_name =  "id_pw.json"
 _dict = dict()
 _IdpwDict = dict()
 
+
+_suffixName = str()
 # {
 # "account": "",
 # "password": ""
@@ -75,13 +77,13 @@ def runChrom():
 		exit()
 	chromedriverPath = autoDC(os.path.split(_path)[0])
 	print(chromedriverPath)
-	print("登陆中。。。")
+	print("登陆中...")
 	s = Service(chromedriverPath)
 	options = webdriver.ChromeOptions()
 	options.add_argument('--headless')
 	options.add_argument('--no-sandbox')
 	options.add_argument('--disable-dev-shm-usage')
-	isHeadless = False
+	isHeadless = True
 	if isHeadless == True:
 		browser = webdriver.Chrome(service=s, options=options)
 	else:
@@ -107,7 +109,7 @@ def runChrom():
 	profile = browser.find_element(By.ID, "user-profile")
 	profile.click()
 	cookie_list = browser.get_cookies()
-	# print(cookie_list)
+	print("登录完成，重新进入下载流程。")
 	return cookie_list
 
 def getjsonPath(_path, logPath, num=10):
@@ -216,15 +218,14 @@ def requetAndWriteLog():
 					wirteCount += 1
 
 
-			print("文件大小：%.2f MB"%(get_FileSize(zipPath)))
+			print("下载完成：文件大小：%.2f MB"%(get_FileSize(zipPath)))
 			zip_and_un_zip(data, zipPath, unzipPath)
 			des = _dict['savePath']
 			if des == "":
 				des = os.path.expanduser('~/Documents')
-			logPath = os.path.join(des, timeName + '.txt')
+			logPath = os.path.join(des, timeName + _suffixName +'.txt')
 			maxFile = int(_dict['maxcount']) // 500
 			getjsonPath(unzipPath, logPath = logPath,  num= maxFile)
-		print("download succeed.")
 
 	# data = response.content
 
@@ -296,6 +297,8 @@ if __name__ == '__main__':
 		_url = sys.argv[1]
 		_dict['userUrl'] = _url
 		print("接收到参数:" + _url)
+	if len(sys.argv) > 2:
+		_suffixName = sys.argv[2]
 	changeRequestParmater()
 	_code = requetAndWriteLog()
 	if _code == 401:

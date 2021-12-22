@@ -5,9 +5,10 @@ def application(environ, start_response):
 	return [b'<h1>Hello, web!</h1>']
 
 def demo_app(environ,start_response):
+    print("---connect")
     from io import StringIO
     stdout = StringIO()
-    print("Hello world!", file=stdout)
+    print("Hello world! --- ", file=stdout)
     print(file=stdout)
     h = sorted(environ.items())
     for k,v in h:
@@ -19,3 +20,5 @@ def demo_app(environ,start_response):
 httpd = make_server('', 9999, demo_app)
 print('start http: 9999')
 httpd.serve_forever()
+
+# http://localhost:9999/

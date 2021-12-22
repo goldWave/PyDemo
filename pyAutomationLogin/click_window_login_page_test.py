@@ -134,7 +134,7 @@ def transPage(_windget):
         return
     docuName = _document.Name
     # print('docuName: %s' % docuName)
-    print('docuurl: %s' % str(_document.GetValuePattern().Value))
+    # print('docuurl: %s' % str(_document.GetValuePattern().Value))
     if docuName == 'V LIVE':
         print('found vlive page')
         _btn = _document.CustomControl(searchDepth=1, AutomationId='content').HyperlinkControl(searchDepth=2, SubName='NAVER')
