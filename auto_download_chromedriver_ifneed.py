@@ -143,18 +143,23 @@ def print_chromedriver_path():
     print(get_chromedriver_path())
 
 
-def download_chromedriver(path:str=None):
+def download_chromedriver(path:str=None, fulleVersion:str=None):
     """
     Downloads, unzips and installs chromedriver.
     If a chromedriver binary is found in PATH it will be copied, otherwise downloaded.
     :param str path: Path of the directory where to save the downloaded chromedriver to.
     :return: The file path of chromedriver
     """
-    chrome_version = get_chrome_version()
+    if fulleVersion:
+        chrome_version = fulleVersion
+    else:
+        chrome_version = get_chrome_version()
+
     if not chrome_version:
         print('Chrome is not installed.')
         return
     chromedriver_version = get_matched_chromedriver_version(chrome_version)
+
     if not chromedriver_version:
        print('Can not find chromedriver for currently installed chrome version.')
        return
@@ -192,5 +197,8 @@ def download_chromedriver(path:str=None):
     return chromedriver_filepath
 
 
+if __name__ == '__main__':
+    chromedriverPath = download_chromedriver(fulleVersion="75.0.3770.100")
+    print(chromedriverPath)
 
 # download_chromedriver(r'C:\Users\Administrator\Desktop\tt\555')

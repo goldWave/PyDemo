@@ -4,7 +4,7 @@ import requests, urllib3, json, time, os
 from bs4 import BeautifulSoup
 from multiprocessing.dummy import Pool as ThreadPool
 
-s_Image_type = "thumb" 
+s_Image_type = "raw" 
 #raw full regular small thumb
 
 class GetPhoto(object):
@@ -18,6 +18,7 @@ class GetPhoto(object):
 		urllib3.disable_warnings()
 		req = requests.get(url=target, verify=False)
 		html = json.loads(req.text)
+		# print(html)
 		for item in html[0:]:
 			urlsItem = item["urls"]
 			if s_Image_type in urlsItem:
@@ -41,26 +42,27 @@ class GetPhoto(object):
 
 
 	def moveFolder(self, folderName):
-		print(os.getcwd())
+		# print(os.getcwd())
 		if not os.path.isdir(folderName):
 			os.mkdir(folderName)
 		os.chdir(folderName)
 
 	def run(self):
-		target = 'https://unsplash.com/napi/photos?page=%d&per_page=20'
-		for i in range(11,20):
+		# target = 'https://unsplash.com/napi/photos?page=%d&per_page=20'
+		target = 'https://unsplash.com/napi/topics/travel/photos?page=%d&per_page=20'
+		for i in range(1,2):
 			print('--------------------------  %d  -----------------------------' % i)
 			url = str(target % i)
 			gPhoto.getUrls(url)
-			time.sleep(0.3)
+			time.sleep(0.05)
 
 		print('获取url数量：%d' % len(gPhoto.photoUrls))
 
 		gPhoto.moveFolder(s_Image_type)
 		print('开始下载----')
-		print(os.getcwd())
+		# print(os.getcwd())
 
-		po = ThreadPool(8)
+		po = ThreadPool(32)
 		po.map(self.download, gPhoto.photoUrls)
 		po.close()
 		po.join()
@@ -70,7 +72,8 @@ class GetPhoto(object):
 			if val in url:
 				index = i
 				break
-		path = os.getcwd() + '\\%d.jpg' % index
+		# path = os.getcwd() + '\\%d.jpg' % index
+		path = "C:\\Users\\Administrator\\Pictures\\Camera Roll" + '\\%s_%d.jpg' % (s_Image_type,index)
 		print('-----start: ' + path, end="\n")
 		self.downloadImage(url, path)
 

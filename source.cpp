@@ -4,77 +4,54 @@
 
 using namespace std;
 
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode *next) : val(x), next(next) {}
+};
+ 
 class Solution {
 public:
-    int findNthDigit(int n) {
+    ListNode* removeZeroSumSublists(ListNode* head) {
+    	ListNode *pre = new ListNode(0, head);
 
-    	long k = 9;
-    	long start = 0;
-    	long end = 9;
-    	int bitNum = 1;
-
-    	while(true) {
-    		if (start <= n && n <= end)
-    		{
-    			//找到符合 的区间
-    			long startNum = k / 9;
-    			long index = n - start - 1;
-    			long numIndex = index%bitNum+1; //findNum数字的第几位
-    			long findNum =  startNum + index/bitNum; //找到的应该从哪个数字进行提取
-    			
-    			//取findNum 下标为numIndex的数字
-    			while(findNum>0){
-    				if(bitNum == numIndex) {
-    					return findNum%10;
-    				}
-    				--bitNum;
-    				findNum /= 10;
-    			}
-    		}
-
-    		start = end;
-    		k *= 10;
-    		++bitNum;
-    		end = start + k * bitNum;
+    	ListNode *cur = pre->next;
+    	unordered_map<int, ListNode *>sumMap;
+    	while (cur) {
+    		orderma
     	}
-    	return end;
     }
 };
 
 int main() {
-	cout << 6/10<< endl;
+/*	cout << 6/10<< endl;
 	Solution s;
-	int b = s.findNthDigit(11);
-	cout << "return " << b << endl;
+	std::vector<int> m{4,3,2,7,8,2,3,1};
+	auto  b = s.findDisappearedNumbers(m);
+	// cout << "return " << b << endl;
+	for (auto x : b) {
+		cout << "iiii " <<  x << "  ";
+	}
+	cout << endl;*/
 	return 0;
 
 }
 
-/*输入
-数字序列中某一位的数字
-数字以0123456789101112131415…的格式序列化到一个字符序列中。在这个序列中，第5位（从下标0开始计数）是5，第13位是1，第19位是4，等等。
-
-请写一个函数，求任意第n位对应的数字。
-
- 	cout << "findNum:" << findNum << endl;
-    			cout << "numIndex:" << numIndex << endl;
-    			/*vector<int>v;
-    			while(findNum>0){
-    				v.push_back(findNum%10);
-    				findNum /= 10;
-    			}
-    			return v[v.size()-1-numIndex];*/
+/*
 示例 1：
 
-输入：n = 3
-输出：3
+输入：head = [1,2,-3,3,1]
+输出：[3,1]
+提示：答案 [1,2,1] 也是正确的。
 示例 2：
 
-输入：n = 11
-输出：0
- 
+输入：head = [1,2,3,-3,4]
+输出：[1,2,4]
+示例 3：
 
-限制：
+输入：head = [1,2,3,-3,-2]
+输出：[1]
 
-0 <= n < 2^31
 */
