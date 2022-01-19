@@ -1,7 +1,7 @@
 import os,sys
 from git import Repo, Commit
 
-_files = ('.cpp','.h','.hpp')
+_files = ('.cpp','.h','.hpp','.c')
 _repo_path = r'C:\Users\Administrator\Documents\source\PRISMLiveStudio'
 
  # python /c/Users/Administrator/Documents/source/PyDemo/clang_commit_self.py 10
@@ -24,3 +24,6 @@ if __name__ == '__main__':
     os.chdir(_repo_path)
     _cmdStr = 'clang-format -i %s' % (" ".join(_allList))
     os.system(_cmdStr)
+
+    for x in _allList:
+        print(x)
