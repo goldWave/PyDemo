@@ -4,6 +4,7 @@ import zipfile
 import datetime, time
 from urllib.parse import urlparse, parse_qs
 from sys import exit
+sys.path.insert(0, "../")
 from auto_download_chromedriver_ifneed import download_chromedriver as autoDC
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -150,7 +151,8 @@ def getjsonPath(_path, logPath, num=10):
 	with open(logPath, 'w', encoding='utf-8') as f:
 		f.seek(0)
 		f.truncate()
-
+		f.write("0000 remoteUrl: " + _dict['userUrl'])
+		f.write('\n\n')
 		for line in _allDatas:
 			f.write(line)
 			f.write('\n')

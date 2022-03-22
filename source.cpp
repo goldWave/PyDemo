@@ -4,54 +4,57 @@
 
 using namespace std;
 
-struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode() : val(0), next(nullptr) {}
-    ListNode(int x) : val(x), next(nullptr) {}
-    ListNode(int x, ListNode *next) : val(x), next(next) {}
-};
- 
+
 class Solution {
 public:
-    ListNode* removeZeroSumSublists(ListNode* head) {
-    	ListNode *pre = new ListNode(0, head);
+    void nextPermutation(vector<int>& nums) {
+    	int n = nums.size();
+    	if (n == 0) {
+    		return;
+    	}
 
-    	ListNode *cur = pre->next;
-    	unordered_map<int, ListNode *>sumMap;
-    	while (cur) {
-    		orderma
+    	int i = n - 2;
+    	int j = n - 1;
+    	int k = n - 1;
+
+    	while (i >= 0 && nums[i] > nums[j]) {
+    		i--;
+    		j--;
+    	}
+    	if (j >= 0) {
+    		// 找k值
+    		while(j <= k && nums[i] > nums[k]){
+    			k--;
+    		}
+    		swap(nums[i], nums[k]);
+
+    		i++;
+    		while (i < k) {
+    			swap(nums[i], nums[k]);
+    			i--;
+    			k--;
+    		}
     	}
     }
 };
 
 int main() {
-/*	cout << 6/10<< endl;
-	Solution s;
-	std::vector<int> m{4,3,2,7,8,2,3,1};
-	auto  b = s.findDisappearedNumbers(m);
-	// cout << "return " << b << endl;
-	for (auto x : b) {
+
+	
+	std::vector<int> m{3,2,1};
+	for (auto x : m) {
 		cout << "iiii " <<  x << "  ";
 	}
-	cout << endl;*/
+	
+	cout << endl;
+
+	Solution s;
+	s.nextPermutation(m);
+	// cout << "return " << b << endl;
+	for (auto x : m) {
+		cout << "iiii " <<  x << "  ";
+	}
+	cout << endl;
 	return 0;
 
 }
-
-/*
-示例 1：
-
-输入：head = [1,2,-3,3,1]
-输出：[3,1]
-提示：答案 [1,2,1] 也是正确的。
-示例 2：
-
-输入：head = [1,2,3,-3,4]
-输出：[1,2,4]
-示例 3：
-
-输入：head = [1,2,3,-3,-2]
-输出：[1]
-
-*/

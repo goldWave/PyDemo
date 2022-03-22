@@ -3,7 +3,7 @@ import sys
 
 def bubble_sort(input_num):
 	"""
-	排序1 冒泡排序
+	排序1 冒泡排序    两两比较   逐步找到最小或者最大值，然后找到第二小
 	"""
 	sorted_data = input_num
 	for i in range(0,len(input_num)):
@@ -15,19 +15,19 @@ def bubble_sort(input_num):
 
 def select_sort(input_num):
 	"""
-	排序5 简单选择排序
+	排序5 简单选择排序  找到最大最小值，和存起来的值比较，  
 	"""
-	sorted_data = input_num
-	for i in range(0, len(input_num)):
-		print(i)
-		for j in range(i, len(input_num)):
-			if sorted_data[i] > sorted_data[j]:
-				sorted_data[i], sorted_data[j] = sorted_data[j], sorted_data[i]
-	return sorted_data
+    for i in range(0, len(input_num)):
+        minIdx = i
+        for j in range(i+1, len(input_num)):
+            if input_num[j] < input_num[minIdx]:
+                minIdx = j
+        input_num[i], input_num[minIdx] = input_num[minIdx], input_num[i]
+	return input_num
 
 def insert_sort(input_num):
 	"""
-	排序2 插入排序 
+	排序2 插入排序   ，  去排好序的列表里面进行替换
 	"""
 	sorted_data = input_num
 	for i in range(1, len(input_num)):

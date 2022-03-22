@@ -1,28 +1,48 @@
+
+import sys, os, json
+import time
 from typing import List
-import os
 
-import os
-from git import Repo, Commit
+class Solution:
+    def nextPermutation(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
 
-_files = ('.cpp','.h','.hpp')
-_repo_path = r'C:\Users\Administrator\Documents\source\PRISMLiveStudio'
+func nextPermutation(nums []int) {
+    if len(nums) <= 1 {
+        return
+    }
 
-def test():
+    i, j, k := len(nums)-2, len(nums)-1, len(nums)-1
+
+    // find: A[i]<A[j]
+    for i >= 0 && nums[i] >= nums[j] {
+        i--
+        j--
+    }
+
+    if i >= 0 { // 不是最后一个排列
+        // find: A[i]<A[k]
+        for nums[i] >= nums[k] {
+            k--
+        }
+        // swap A[i], A[k]
+        nums[i], nums[k] = nums[k], nums[i]
+    }
+
+    // reverse A[j:end]
+    for i, j := j, len(nums)-1; i < j; i, j = i+1, j-1 {
+        nums[i], nums[j] = nums[j], nums[i]
+    }
+}
 
 
 if __name__ == '__main__':
-    maxCount = 10
-    if len(sys.argv) == 2:
-        maxCount = sys.argv[2]
-    repo = Repo(_repo_path)
-    branch = repo.active_branch
-    commits = list(repo.iter_commits(branch.name,author='jimbo', max_count=maxCount))
 
-    _allList = set()
-    for c in commits:
-        for x in c.stats.files:
-           if os.path.splitext(x)[-1] in _files:
-            _allList.add(x)
-    os.chdir(_repo_path)
-    _cmdStr = 'clang-format -i %s' % (" ".join(_allList))
-    os.system(_cmdStr)
+    a = Solution()
+    b = a.generateParenthesis(1)
+    print(b)
+
+
+
