@@ -9,11 +9,13 @@ from auto_download_chromedriver_ifneed import download_chromedriver as autoDC
 """
 查看進程的啓動命令行參數
 wmic process where caption="obs-browser-page.exe" get caption,commandline /value
+wmic process where caption="chrome.exe" get caption,commandline /value | find remote
 """
 # 
 
 if __name__ == '__main__':
 
+	os.system("taskkill /f /im chromedriver.exe /T")
 	chromedriverPath = autoDC()
 	print(chromedriverPath)
 	chrome_options =  webdriver.ChromeOptions()
@@ -21,6 +23,13 @@ if __name__ == '__main__':
 	s = Service(chromedriverPath)
 	driver = webdriver.Chrome(service=s, options = chrome_options)
 	print(driver.current_url)
+
+	windowstabs=driver.window_handles
+	for tab in windowstabs:
+		driver.switch_to.window(tab)
+		print("switch_to: ", driver.current_url)
+		if 'is_popout' in driver.current_url:
+			break
 
 	while True:
 		v = driver.find_element(By.ID, 'input')
@@ -30,5 +39,5 @@ if __name__ == '__main__':
 		a.send_keys(t5)
 		print(t5)
 		driver.find_element(By.XPATH, '/html/body/yt-live-chat-app/div/yt-live-chat-renderer/iron-pages/div/div[1]/iron-pages/div[1]/yt-live-chat-message-input-renderer/div[2]/div[3]/div[2]/div[2]/yt-button-renderer/a/yt-icon-button').click()
-		time.sleep(1)
+		time.sleep(60)
 

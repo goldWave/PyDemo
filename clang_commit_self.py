@@ -17,6 +17,7 @@ def conrData():
     repo = Repo(_repo_path)
     branch = repo.active_branch
     commits = list(repo.iter_commits(branch.name,author='jimbo', max_count=maxCount))
+    # commits = list(repo.iter_commits(branch.name, max_count=maxCount))
 
     _allList = set()
     for c in commits:
