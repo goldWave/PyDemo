@@ -33,11 +33,11 @@ if __name__ == '__main__':
 
 	while True:
 		v = driver.find_element(By.ID, 'input')
-		print(v)
 		a = driver.find_element(By.XPATH, '/html/body/yt-live-chat-app/div/yt-live-chat-renderer/iron-pages/div/div[1]/iron-pages/div[1]/yt-live-chat-message-input-renderer/div[2]/div[1]/div/yt-live-chat-text-input-field-renderer/div[1]')
 		t5 = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 		a.send_keys(t5)
 		print(t5)
 		driver.find_element(By.XPATH, '/html/body/yt-live-chat-app/div/yt-live-chat-renderer/iron-pages/div/div[1]/iron-pages/div[1]/yt-live-chat-message-input-renderer/div[2]/div[3]/div[2]/div[2]/yt-button-renderer/a/yt-icon-button').click()
-		time.sleep(60)
+		time.sleep(60*20)
+		# print("timeover: ", t5)https://www.youtube.com/live_chat?is_popout=1&v=IViH7qKhqSI
 

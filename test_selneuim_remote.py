@@ -9,6 +9,7 @@ from auto_download_chromedriver_ifneed import download_chromedriver as autoDC
 """
 查看進程的啓動命令行參數
 wmic process where caption="obs-browser-page.exe" get caption,commandline /value
+wmic process where caption="chrome.exe" get caption,commandline /value | find remote
 """
 # 
 

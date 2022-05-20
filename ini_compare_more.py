@@ -8,8 +8,8 @@ r"""
 from ini_common_method import *
 import os,glob
 
-s_ini_paths_only = ["en-US.ini", "ja-JP.ini", "id-ID.ini","ko-KR.ini","pt-BR.ini"]
-# s_ini_paths_only = ["en-US.ini","ja-JP.ini"]
+# s_ini_paths_only = ["en-US.ini", "ko-KR.ini", "id-ID.ini","ko-KR.ini","pt-BR.ini"]
+s_ini_paths_only = ["ko-KR.ini","en-US.ini"]
 
 dir_common_pre = "C:\\Users\\Administrator\\source\\PRISMLiveStudio\\src\\prism\\main\\data\\locale\\"
 # s_ini_paths = [dir_common_pre + x for x in s_ini_paths_only]
@@ -58,7 +58,7 @@ def writeDiffToExcel(_paths, _name):
 		# print(_dics)
 		# print(x)
 
-	writeCompareKeyToExcel("D:\\py_T\\compare_language_" +  _name + ".xls", _names, _mores, _dics, _isContainIgnore=True)
+	writeCompareKeyToExcel("C:\\Users\\Administrator\\Desktop\\compare_language_" +  _name + ".xls", _names, _mores, _dics, _isContainIgnore=True)
 
 def checkMoreParam(_paths, _name):
 	#多个ini 互相比较，检查 %1 %2 数量是否相同
@@ -103,13 +103,13 @@ if __name__ == '__main__':
 	# writeDiffToExcel()
 	# removeMoreEnglishKey()
 
-	_list =  findAllCheckFile_inis("C:\\Users\\Administrator\\source\\PRISMLiveStudio\\")
+	_list =  findAllCheckFile_inis("C:\\Users\\Administrator\\Documents\\source\\PRISMLiveStudio\\src\\prism\\main\\data\\locale\\")
 	# _list =  findAllCheckFile_inis(dir_common_pre)
 	_set = set()
 	# print(_list)
 	for name, path in _list:
+
 		_paths = [path+"\\" + x for x in s_ini_paths_only]
-		# writeDiffToExcel(_paths, name)
-		
-		checkMoreParam(_paths, name)
+		# checkMoreParam(_paths, name)
+		writeDiffToExcel(_paths, name)
 
