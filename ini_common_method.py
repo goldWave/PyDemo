@@ -940,7 +940,12 @@ def findAllCheckFile_inis(_dir_all_pre="C:\\Users\\Administrator\\source\\PRISML
 	_li = [(x.replace(_dir_all_pre, "xls_").replace('\\', '_'), x)  for x in _allFiles]
 	return _li
 	
-
+def encodeStr(s):
+    return ' '.join([bin(ord(c)).replace('0b', '') for c in s])
+ 
+def decodeStr(s):
+    return ''.join([chr(i) for i in [int(b, 2) for b in s.split(' ')]])
+    
 """
 #不添加到 比对文本里面去。
 Auth.AuthFailure.Text

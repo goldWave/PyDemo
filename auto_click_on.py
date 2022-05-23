@@ -7,6 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from auto_download_chromedriver_ifneed import download_chromedriver
 from auto_download_chromedriver_ifneed import download_chromedriver as autoDC
+from ini_common_method import *
 
 """
 查看進程的啓動命令行參數
@@ -15,12 +16,16 @@ wmic process where caption="chrome.exe" get caption,commandline /value | findstr
 """
 # 
 
-def isValidTime() -> bool:
+_k_decodeStr = '1101000 1110100 1110100 1110000 1110011 111010 101111 101111 1100011 1101111 1101110 1101110 1100101 1100011 1110100 101110 1101110 1100001 1110110 1100101 1110010 1100011 1101111 1110010 1110000 101110 1100011 1101111 1101101 101111 1101000 1101111 1101101 1100101'
+
+def getScheduleTime():
 	_now = datetime.datetime.now().strftime('%Y-%m-%d')
 	_now +=  " 18:41:00"
-	# print(_now)
-	timeArray = time.strptime(_now, "%Y-%m-%d %H:%M:%S")
-	 
+	
+	return _now
+
+def isValidTime() -> bool:
+	timeArray = time.strptime(getScheduleTime(), "%Y-%m-%d %H:%M:%S")
 	# 转换为时间戳
 	timeStamp = int(time.mktime(timeArray))
 
@@ -50,8 +55,8 @@ def clickOutBtn():
 	windowstabs=driver.window_handles
 	for tab in windowstabs:
 		driver.switch_to.window(tab)
-		print("switch_to: ", driver.current_url)
-		if driver.current_url.startswith("https://connect.navercorp.com/home"):
+		# print("switch_to: ", driver.current_url)
+		if driver.current_url.startswith(decodeStr(_k_decodeStr)):
 			break
 
 	print(driver.current_url)
@@ -62,6 +67,7 @@ def clickOutBtn():
 	closewindows(10)
 
 if __name__ == '__main__':
+	print("scheudleTiem:" , getScheduleTime())
 	while True:
 		if isValidTime():
 			clickOutBtn()
