@@ -9,12 +9,15 @@ import multiprocessing as mp
 
 s_str_replace = "检测替换"
 
-dir_cache_path = 'D:\\languageCache\\'
+dir_cache_path = 'C:\\Users\\Administrator\\Documents\\source\\cache\\'
 dir_all_file = dir_cache_path + "all_file.txt"
 dir_i_file = dir_cache_path + "i_file.txt"
 dir_ignore_file = dir_cache_path + "ignore_excel_keys.txt"
 
-dir_checked = "C:\\Users\\Administrator\\source\\PRISMLiveStudio\\src\\prism"
+dir_all_alart_lines = dir_cache_path + "alert_lines.txt"
+dir_all_check_alart_lines = dir_cache_path + "check_alert_lines.txt"
+
+dir_checked = "C:\\Users\\Administrator\\Documents\\source\\PRISMLiveStudio\\src\\prism"
 
 s_common_key_paths = [{"en-US.ini":"en-US.ini"},{"ko-KR.ini":"ko-KR.ini"},{"id-ID.ini":"id-ID.ini"},{"pt-BR.ini":"pt-BR.ini"},{"ja-JP.ini":"ja-JP.ini"},{"es-ES.ini":"es-ES.ini"}]
 s_common_ini_paths_only = ["en-US.ini", "ja-JP.ini", "id-ID.ini","ko-KR.ini","pt-BR.ini","es-ES.ini"]
@@ -329,10 +332,7 @@ def openAndCheckUsedData_Process(fileList, keyList, isMacro=False, printProgress
 	for x in keyList:
 		_keyDic[x] = 0
 	
-	_co = mp.cpu_count()
-	# print(_co)
-	# p = mp.Pool(_co*2)
-	p = mp.Pool(1000)
+	p = mp.Pool(mp.cpu_count()*2)
 	m = mp.Manager()
 	dic=m.dict(_keyDic)
 	_lock = m.Lock()
