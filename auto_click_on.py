@@ -58,7 +58,7 @@ def clickOutBtn():
 	driver.switch_to.frame('hrIframe')
 	_outBtn = driver.find_element(By.CLASS_NAME, 'btn_check.on')
 	print(_outBtn)
-	_outBtn.Click()
+	_outBtn.click()
 	closewindows(10)
 
 if __name__ == '__main__':
