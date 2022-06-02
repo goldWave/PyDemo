@@ -34,7 +34,6 @@ def copyFile():
     # 指定图片存放目录B
     for i in objFileName():
         objName = i
-        
 
 
 if __name__ == '__main__':
@@ -44,7 +43,8 @@ if __name__ == '__main__':
 
 	index = 0
 	for (_dir, name) in a:
-		print(index, name)
 		pre = _dir.split('/')[-1][:2]
-		shutil.copy(_dir + '/' + name, targetPath + '/' + pre + '_' + name)
-		# print(_dir, name)
+		_desPath = targetPath + '/' + pre + '_' + name
+		print(_desPath)
+		shutil.copy(_dir + '/' + name, _desPath)
+		os.unlink(_dir + '/' + name) #删除文件
