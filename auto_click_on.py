@@ -20,7 +20,7 @@ _k_decodeStr = '1101000 1110100 1110100 1110000 1110011 111010 101111 101111 110
 
 def getScheduleTime():
 	_now = datetime.datetime.now().strftime('%Y-%m-%d')
-	_now +=  " 18:41:00"
+	_now +=  " 18:40:10"
 	
 	return _now
 
@@ -42,6 +42,19 @@ def closewindows(closetime):
   user32 = windll.LoadLibrary('user32.dll')
   user32.LockWorkStation()
 
+def check_login_btn(driver):
+    try:
+        l = driver.find_element(By.ID, 'loginBtnAct')
+        l.click()
+    except:
+        pass
+
+    try:
+        driver.switch_to.frame('hrIframe')
+        driver.find_element(By.ID, 'loginBtnAct').click()
+    except:
+        pass
+
 def clickOutBtn():
 	os.system("taskkill /f /im chromedriver.exe /T")
 	chromedriverPath = autoDC()
@@ -52,21 +65,24 @@ def clickOutBtn():
 	driver = webdriver.Chrome(service=s, options = chrome_options)
 	print(driver.current_url)
 
+	is_found = False
 	windowstabs=driver.window_handles
 	for tab in windowstabs:
 		driver.switch_to.window(tab)
 		# print("switch_to: ", driver.current_url)
 		if driver.current_url.startswith(decodeStr(_k_decodeStr)):
+			is_found = True
 			break
-
-	print(driver.current_url)
-	driver.switch_to.frame('hrIframe')
+	if not is_found:
+		driver.get(decodeStr(_k_decodeStr))
+	check_login_btn(driver)
+	sleep(5)
 	_outBtn = driver.find_element(By.CLASS_NAME, 'btn_check.on')
 	print(_outBtn)
 	_outBtn.click()
 	closewindows(10)
 
-if __name__ == '__main__':
+def startSchedule():
 	print("scheudleTiem:" , getScheduleTime())
 	while True:
 		if isValidTime():
@@ -74,4 +90,7 @@ if __name__ == '__main__':
 			break
 		else:
 			print(datetime.datetime.now(), "  ...")
-			time.sleep(60)
+			time.sleep(30)
+
+if __name__ == '__main__':
+	startSchedule()
