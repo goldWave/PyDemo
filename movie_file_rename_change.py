@@ -18,7 +18,7 @@ def findAllCheckFile_inis(_dir_all_pre="/Users/jimbo/Documents/洗片/小马哥�
 		# print(files)
 		for file in files:
 			# print(root, "\t" , file)
-			if file.endswith('mp4'):
+			if file.endswith('mp4') or file.endswith('ts'):
 				_li.append((root, file))
 			# if file == 'locale.ini':
 			# 	continue
@@ -27,18 +27,18 @@ def findAllCheckFile_inis(_dir_all_pre="/Users/jimbo/Documents/洗片/小马哥�
 	return _li
 
 
-def copyFile():
-    sourcePath = r'D:\test\A'
-    # 指定图片原始路径A
-    targetPath = r'D:\test\B'
-    # 指定图片存放目录B
-    for i in objFileName():
-        objName = i
+def onlyMove(a: list):
+	targetPath = '/Users/jimbo/Documents/洗片/output'
 
+	index = 0
+	for (_dir, name) in a:
+		pre = _dir.split('/')[-1][:2]
+		_desPath = targetPath + '/' + name
+		print(_desPath)
+		shutil.copy(_dir + '/' + name, _desPath)
+		os.unlink(_dir + '/' + name) #删除文件
 
-if __name__ == '__main__':
-	a = findAllCheckFile_inis()
-
+def moveAndRename(a):
 	targetPath = '/Users/jimbo/Documents/洗片/output'
 
 	index = 0
@@ -48,3 +48,9 @@ if __name__ == '__main__':
 		print(_desPath)
 		shutil.copy(_dir + '/' + name, _desPath)
 		os.unlink(_dir + '/' + name) #删除文件
+
+if __name__ == '__main__':
+	a = findAllCheckFile_inis()
+	# moveAndRename(a)
+	onlyMove(a)
+
