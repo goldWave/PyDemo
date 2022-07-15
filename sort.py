@@ -40,35 +40,22 @@ def insert_sort(input_num):
 		print("         ", sorted_data)
 	return sorted_data;
 	
-def shell_sort(input_num):
+def shell_sort(nums):
 	"""
 	排序3 希尔排序
 	"""
-	length = len(input_num)
-	if length <= 1:
-		return input_num
-	sorted_data = input_num
-	gap = length // 2
-	while gap > 0:
-		for i in range(0, length):
-			j = i - gap
-			temp = sorted_data[i]
-			
-			
-			while j >= 0 and temp < sorted_data[j]:
-				sorted_data[j+gap] = sorted_data[j]
-				j -= gap
-				
-			sorted_data[j+gap] = temp
-
-			# for j in range(j, -1, -gap):
-			# 	temp = sorted_data[j+gap]
-			# 	if temp < sorted_data[j]:
-			# 		print("-----------------------------i:",i,"gap:",gap, "j:",j, "                ", sorted_data)
-			# 		sorted_data[j+gap], sorted_data[j] = sorted_data[j], sorted_data[j+gap]
-			# 		print("----------------------------------------------i:",i,"gap:",gap, "j:",j,  sorted_data)
-		gap //= 2
-	return sorted_data
+    n = len(nums)
+    gap = n // 2
+    while gap > 0:
+        for i in range(gap, n):
+            while i >= gap and nums[i-gap] > nums[i]:
+                nums[i-gap], nums[i] = nums[i], nums[i-gap]
+                print(i, gap)
+                i -= gap
+            print("00000---")
+        gap //= 2
+        print("排序数据: ", nums)
+    return nums
 
 def qucik_sort(input_num, left, right):
 	"""

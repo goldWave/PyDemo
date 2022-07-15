@@ -175,7 +175,7 @@ if __name__ == '__main__':
 		chrome_port = "9529"
 	else:
 		chrome_version = "chromedriver_75.0.3770.90.exe"
-		chrome_port = "9527"
+		chrome_port = "19527"
 
 	chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:"+chrome_port)
 

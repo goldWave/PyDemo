@@ -9,119 +9,61 @@ from auto_download_chromedriver_ifneed import download_chromedriver
 from auto_download_chromedriver_ifneed import download_chromedriver as autoDC
 from ini_common_method import *
 
-"""
-查看進程的啓動命令行參數
-wmic process where caption="obs-browser-page.exe" get caption,commandline /value
-wmic process where caption="chrome.exe" get caption,commandline /value | findstr remote
-"""
-# 
+class Solution:
+    def rotate(self, nums: list[int], k: int) -> None:
+        isFirstIn = True
+        size = len(nums)
+        if size == 0:
+            return
+        tmpK = k % size
+        print(tmpK)
+        i = 0
+        preVal = nums[i]
+        while True:
+            if i >= size - 1:
+                i -= size
+            if not isFirstIn and i == 0:
+                break
+            j = i+tmpK
+            isFirstIn = False
+            if j >= size - 1:
+                j -= size
 
-_k_decodeStr = '1101000 1110100 1110100 1110000 1110011 111010 101111 101111 1100011 1101111 1101110 1101110 1100101 1100011 1110100 101110 1101110 1100001 1110110 1100101 1110010 1100011 1101111 1110010 1110000 101110 1100011 1101111 1101101 101111 1101000 1101111 1101101 1100101'
-
-def getScheduleTime():
-    _now = datetime.datetime.now().strftime('%Y-%m-%d')
-    _now +=  " 17:41:00"
-    
-    return _now
-
-def isValidTime() -> bool:
-    timeArray = time.strptime(getScheduleTime(), "%Y-%m-%d %H:%M:%S")
-    # 转换为时间戳
-    timeStamp = int(time.mktime(timeArray))
-
-    if time.time() > timeStamp:
-        return True
-    return False
-
-
-def closewindows(closetime):
-  while closetime>0:
-    print(closetime)
-    time.sleep(1)
-    closetime-=1
-  user32 = windll.LoadLibrary('user32.dll')
-  user32.LockWorkStation()
-
-def clickOutBtn():
-    os.system("taskkill /f /im chromedriver.exe /T")
-    chromedriverPath = autoDC()
-    print(chromedriverPath)
-    chrome_options =  webdriver.ChromeOptions()
-    chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9533")
-    s = Service(chromedriverPath)
-    driver = webdriver.Chrome(service=s, options = chrome_options)
-    print(driver.current_url)
-
-    windowstabs=driver.window_handles
-    for tab in windowstabs:
-        driver.switch_to.window(tab)
-        # print("switch_to: ", driver.current_url)
-        if driver.current_url.startswith(decodeStr(_k_decodeStr)):
-            break
-    _outBtn = driver.find_element(By.CLASS_NAME, 'btn.small_green')
-    print(_outBtn)
-    _outBtn.click()
+            print(i,j)
+            tmp = nums[j]
+            nums[j] = preVal
+            preVal = tmp
+            i += 1
+        print(nums)
 
 
-def testToClickSmallGreen():
-    print("scheudleTiem:" , getScheduleTime())
-    while True:
-        if isValidTime():
-            clickOutBtn()
-            break
+def findData(nums, val):
+    n = len(nums)
+    start = 0
+    end = n - 1
+    while start <= end:
+        idx = start + (end - start) // 2
+        print(idx, start, end)
+
+        if nums[idx] > val:
+            end =  idx  - 1
+        elif nums[idx] < val:
+            start = idx + 1
         else:
-            print(datetime.datetime.now(), "  ...")
-            time.sleep(60)
-
-def check_login_btn(driver):
-    try:
-        l = driver.find_element(By.ID, 'loginBtnAct')
-        l.click()
-    except:
-        pass
-
-    try:
-        driver.switch_to.frame('hrIframe')
-        driver.find_element(By.ID, 'loginBtnAct')click()
-    except:
-        pass
-
-
-def testClickLoginBtn():
-    os.system("taskkill /f /im chromedriver.exe /T")
-    chromedriverPath = autoDC()
-    print(chromedriverPath)
-    chrome_options =  webdriver.ChromeOptions()
-    chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9533")
-    s = Service(chromedriverPath)
-    driver = webdriver.Chrome(service=s, options = chrome_options)
-    print(driver.current_url)
-
-    windowstabs=driver.window_handles
-
-
-    # time.sleep(30)
-
-    is_found = False
-    for tab in windowstabs:
-        driver.switch_to.window(tab)
-        # print("switch_to: ", driver.current_url)
-        if driver.current_url.startswith(decodeStr(_k_decodeStr)):
-            is_found = True
-            break
-
-    print("--old", driver.current_url)
-    if not is_found:
-        driver.get(decodeStr(_k_decodeStr))
-    print("--=", driver.current_url)
-    # _outBtn = driver.find_element(By.CLASS_NAME, 'btn.small_green')
-
-    check_login_btn(driver)
-
-
-    
-# loginBtnAct
-    
+            return idx
+        # if idx == start or idx == end:
+        #     break
+    return -1
 
 if __name__ == '__main__':
-    testClickLoginBtn()
+    # s = Solution()
+    # # s.rotate([1,2,3,4,5,6,7], 3)
+    # s.rotate([-1,-100,3,99], 2)
+    # INT_MIN, INT_MAX = -2**31, 2**31 - 1
+    # print(2**32-1)
+    # print(INT_MAX)
+    nums = [1,4,6,8,9,11,23]
+    i = findData(nums, 26);
+    print(i)
+# 2147483647
+# 4294967295

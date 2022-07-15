@@ -38,10 +38,44 @@ public:
     }
 };
 
+class SolutionA {
+public:
+    int countPrimes(int n) {
+    	std::vector<bool>vec(n, true);
+    	int total = 0;
+    	if (n < 2)
+    	{
+    		return total;
+    	}
+
+    	vec[0] = false;
+    	vec[1] = false;
+
+    	int i = 2;
+
+    	while (i < n) {
+
+    		if (vec[i] == true)
+    		{
+    			total++;
+    			for (int j = i*2; j < n; j+=i)
+    			{
+    				vec[j] = false;
+    			}
+    		}
+    		i++;
+    	}
+    	return total;
+    }
+};
+
 int main() {
 
-	
-	std::vector<int> m{3,2,1};
+	SolutionA s;
+	auto c = s.countPrimes(4);	
+	std::cout << c << std::endl;
+
+/*	std::vector<int> m{3,2,1};
 	for (auto x : m) {
 		cout << "iiii " <<  x << "  ";
 	}
@@ -54,7 +88,7 @@ int main() {
 	for (auto x : m) {
 		cout << "iiii " <<  x << "  ";
 	}
-	cout << endl;
+	cout << endl;*/
 	return 0;
 
 }

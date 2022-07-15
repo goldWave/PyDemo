@@ -20,7 +20,7 @@ _k_decodeStr = '1101000 1110100 1110100 1110000 1110011 111010 101111 101111 110
 
 def getScheduleTime():
 	_now = datetime.datetime.now().strftime('%Y-%m-%d')
-	_now +=  " 18:40:10"
+	_now +=  " 18:31:10"
 	
 	return _now
 
@@ -82,7 +82,18 @@ def clickOutBtn():
 	_outBtn.click()
 	closewindows(10)
 
+def check_chrome_connect():
+	os.system("taskkill /f /im chromedriver.exe /T")
+	chromedriverPath = autoDC()
+	print(chromedriverPath)
+	chrome_options =  webdriver.ChromeOptions()
+	chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9533")
+	s = Service(chromedriverPath)
+	driver = webdriver.Chrome(service=s, options = chrome_options)
+	print("dirver found:", driver)
+
 def startSchedule():
+	check_chrome_connect()
 	print("scheudleTiem:" , getScheduleTime())
 	while True:
 		if isValidTime():
@@ -91,6 +102,8 @@ def startSchedule():
 		else:
 			print(datetime.datetime.now(), "  ...")
 			time.sleep(30)
+
+
 
 if __name__ == '__main__':
 	startSchedule()
